@@ -1,23 +1,6 @@
 <?php
 
-	function ywig_maps_add_scripts(){
-
-		//css
-		//wp_enqueue_style('ywig-maps-style', plugins_url(). '/ywig-maps/css/style.css');
-
-		//js
-		//wp_enqueue_script('ywig-maps-js', plugins_url(). '/ywig-maps/js/main.js');
-
-		// //load google maps api example
-		// wp_register_script('google', 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js');
-		// wp_enqueue_script('google');
-
-
-	}
-	//add_action('wp_enqueue_scripts', 'ywig_maps_add_scripts');
-
-
-	//load admin css and js on edit post page only
+	//load admin css and js on 'marker' edit post page only
 	function ywig_admin_enqueue_scripts(){
 		global $pagenow, $typenow;
 		
@@ -42,8 +25,6 @@
 					'security' => wp_create_nonce( 'wp_marker_nonce' ),
 					'success' => 'Ajax says ok',
 					'failure' => 'Ajax not happy',
-					//'test' => $new_arr
-
 				) 
 			);
 		}
@@ -68,7 +49,7 @@
 	        array( 'jquery' )
 	    );
 
-	   //load google maps api example for cluster
+	   //load google maps api example for marker cluster
 		wp_register_script('google', 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js');
 		wp_enqueue_script('google');
 
@@ -77,7 +58,7 @@
 	    'https://maps.googleapis.com/maps/api/js?key=AIzaSyB7mIJUr340av2q7O3HXe7E75ttFrbCFdQ&libraries=places',
 	    '');
 
-	    //frontend  map css
+	    //frontend map css
 		wp_enqueue_style('ywig-map-style', plugins_url(). '/ywig-maps/css/map.css');
 
 	    $map_nonce = wp_create_nonce( 'map_example' );
@@ -93,7 +74,6 @@
 	function handle_ajax_send_markers(){
 		check_ajax_referer( 'map_example' );
 		//query for markers here
-		//wp_send_json_success('hiya');
 		$args = array(
 		'post_type' => 'marker',
 		'order_by' => 'menu_order',
@@ -111,7 +91,9 @@
 			$arr = array();
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
-				/*
+				/* 	//Uncomment this to use without Advanced Custom Fields
+					//Also require the ywig-map-fields.php inmain ywig-maps.php
+					
 					$lng = get_post_meta( get_the_ID(), 'longitude', true );
 		         	$lat = get_post_meta( get_the_ID(), 'latitude', true );
 		         	$desc = get_post_meta( get_the_ID(), 'description', true );
@@ -130,7 +112,6 @@
 		        	*/
 		        	$location = get_field('acf_marker');
 		        	$desc = get_field('marker_text');
-		        	//$marker = get_post_meta( get_the_ID(), 'marker_id', true );
 		        	$marker = get_the_title();
 		        	$resp[] = array(
 		        		'lng' => $location['lng'],
@@ -156,11 +137,10 @@
 
 	//API Key for ACF
 	function my_acf_google_map_api( $api ){
-		$api['key'] = 'AIzaSyD8pEH8w5TPoAqLSHBphIKy46RQTt-rd7s';
-		//$api['key'] = 'AIzaSyB7mIJUr340av2q7O3HXe7E75ttFrbCFdQ';
-		
-		return $api;
-		
-	}
+		//put google maps api key here, 
+		//need to enable maps javascript api, geocoding(for address search) and possibly another one
+		$api['key'] = '';
 
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
+		return $api;
+	}
+	add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');

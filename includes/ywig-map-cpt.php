@@ -1,10 +1,8 @@
 <?php
-//register ywig map post type
+//register ywig map post type 'Marker'
 function ywig_map_register_post_type(){
 	$singular = 'Marker';
-
 	$plural = 'Markers';
-
 	$labels = array(
 		'name' => $plural,
 		'singular_name' => $singular,

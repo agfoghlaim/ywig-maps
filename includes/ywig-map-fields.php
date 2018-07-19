@@ -13,10 +13,10 @@ add_action('add_meta_boxes', 'ywig_map_add_custom_metabox');
 
 function ywig_meta_callback( $post ){
 	wp_nonce_field( basename(__FILE__), 'ywig_map_nonce');
-	$ywig_stored_meta = get_post_meta( $post->ID );
-	echo '<h1>';
-	var_dump($ywig_stored_meta);
-	echo '</h1>';
+	//$ywig_stored_meta = get_post_meta( $post->ID );
+	// echo '<h1>';
+	// var_dump($ywig_stored_meta);
+	// echo '</h1>';
 	?>
 
 	<div>

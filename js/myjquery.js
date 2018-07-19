@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-  console.log("hello from myjquery.js")
+  //console.log("hello from myjquery.js")
 
 
   var locations = [];
@@ -20,7 +20,8 @@ jQuery(document).ready(function($) {
     console.log("str ", str)
     infoWindowContent.push(arr);
    }
-   /*
+
+    /*
     map expects...array of arrays called locations
     
         eg var locations = [['Regional Office', 53.2767588, -9.0474665]]
@@ -34,7 +35,7 @@ jQuery(document).ready(function($) {
        '<p>Activities include Homework, Soccer, Pool, Snooker, Arts & Crafts, Dance, Summer Camps.</p>' +
        '<p><span>Contact:</span> Catherine McCann, NCYCS 0719144150</p>' +
        '</div>']]
-*/
+    */
 
     $.ajax({
       type:'GET',
@@ -61,18 +62,12 @@ jQuery(document).ready(function($) {
 
       
       function initMap() {
-        console.log("initing map")
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 9,
           center: {lat: 53.276762, lng: -9.0496552},
 
         });
 
-
-
-
- 
-        
       // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
@@ -146,9 +141,9 @@ jQuery(document).ready(function($) {
        markers.push(marker);
     }
   var markerCluster = new MarkerClusterer(map, markers,
-    {imagePath: 'http://www.ncycs.ie/wp-content/themes/Zephyr-child/img/m'});
+    {imagePath: 'http://youthworkgalway.ie/wp-content/uploads/2018/06/ywig_tiny_colour.png'});
     }
-  //}
+ 
 
 
 
